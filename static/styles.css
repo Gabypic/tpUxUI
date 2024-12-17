@@ -1,0 +1,269 @@
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fond gris foncé comme Instant Gaming */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* Conteneur centré avec un fond gris foncé et 2/3 de la largeur */
+.container {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #444444;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 75%; /* 2/3 de la largeur de l'écran */
+}
+
+/* Titre principal centré */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #33a2ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Recentrer la barre de recherche et le bouton côte à côte */
+.search-bar {
+    display: flex;
+    justify-content: center; /* Centrer horizontalement la barre de recherche */
+    align-items: center; /* Aligner verticalement */
+    margin-bottom: 30px;
+    background-color: #292929;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 900px; /* Limiter la largeur de la barre de recherche */
+    margin: 0 auto; /* Centrer horizontalement */
+}
+
+/* Style de l'input de recherche */
+.search-bar input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 12px;
+    font-size: 1.15rem;
+    background-color: #383838;
+    color: #03ffdc;
+    border: 1px solid #444;
+    border-radius: 20px;
+}
+
+/* Style du bouton de recherche juste à côté */
+.search-bar button {
+    background-color: #0367bb;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Effet au survol du bouton */
+.search-bar button:hover {
+    background-color: #0367bb;
+}
+
+/* Focus sur l'input ou le bouton */
+.search-bar input:focus,
+.search-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 87, 51, 0.8);
+}
+
+/* Suggestions de recherche */
+#suggestions {
+    background-color: #444;
+    border-radius: 8px;
+    position: absolute;
+    width: calc(100% - 30px);
+    z-index: 999;
+    margin-top: 5px;
+}
+
+#suggestions a {
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#suggestions a:hover {
+    background-color: #555;
+}
+
+/* Grille de jeux avec CSS Grid */
+.row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 colonnes de largeur égale */
+    gap: 20px; /* Espacement entre les cartes */
+    margin: 0 auto; /* Centrer horizontalement la grille */
+    width: 100%; /* Largeur de la grille */
+}
+
+/* Assurer que chaque carte de jeu a la même taille */
+.card {
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top {
+    object-fit: cover;
+    width: 100%;
+    height: 200px; /* Fixer la hauteur des images */
+}
+
+.card-body {
+    padding: 20px;
+    background-color: #2c2937;
+    color: #f5f5f5;
+    text-align: center;
+    flex-grow: 1; /* Permet à la carte de prendre toute la hauteur disponible */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0ac7ad, #12739f); /* Dégradé de couleurs */
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px; /* Bords arrondis pour un effet plus moderne */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transition fluide */
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #12739f, #0ac7ad); /* Inverser le dégradé au survol */
+    transform: scale(1.03); /* Effet de zoom au survol */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombre portée */
+}
+
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 87, 51, 0.8); /* Effet au focus */
+}
+
+/* Assurer une hauteur uniforme pour toutes les cartes */
+.card-footer {
+    background-color: #2c2c2c;
+    padding: 15px;
+    text-align: center;
+}
+
+.card-footer a {
+    background-color: #3498db;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.card-footer a:hover {
+    background-color: #2980b9;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination .btn {
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .btn:hover {
+    background-color: #2980b9;
+}
+
+.pagination .btn:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+}
+
+/* Adaptation de la grille sur mobile */
+
+@media (max-width: 1158px) {
+    .row {
+        grid-template-columns: repeat(3, 1fr); /* 2 colonnes sur les écrans moyens */
+    }
+}
+
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur les écrans moyens */
+    }
+}
+
+@media (max-width: 576px) {
+    .row {
+        grid-template-columns: 1fr; /* 1 colonne sur les écrans petits */
+    }
+}
+
+
+/* Pagination au centre */
+.d-flex.justify-content-center {
+    display: flex;
+    justify-content: center; /* Centrer la pagination */
+    align-items: center;
+    margin-top: 40px;
+}
+
+.d-flex.justify-content-center .btn {
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.d-flex.justify-content-center .btn:hover {
+    background-color: #2980b9;
+}
+
+.d-flex.justify-content-center .btn:disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+}
+
+.d-flex.justify-content-center span {
+    color: #f5f5f5;
+    font-size: 1.2rem;
+    margin: 0 15px;
+}

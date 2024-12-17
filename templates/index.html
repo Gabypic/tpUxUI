@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming - Page {{ page }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Formulaire de recherche -->
+        <div class="search-bar mb-4">
+            <form method="get" action="{{ url_for('index') }}">
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Rechercher un jeu..." value="{{ request.args.get('search', '') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="min_price" class="form-control" placeholder="Prix min" value="{{ request.args.get('min_price', '') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="max_price" class="form-control" placeholder="Prix max" value="{{ request.args.get('max_price', '') }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 w-100">Rechercher</button>
+            </form>
+            <div id="suggestions" class="list-group" style="display:none;"></div>
+        </div>
+
+        <!-- Titre principal -->
+        <h1 class="text-center mb-4">Liste des Jeux</h1>
+    <div class="d-flex justify-content-center mt-4">
+            {% if page > 1 %}
+                <a href="{{ url_for('index', page=page-1) }}" class="btn btn-secondary mx-2">Précédent</a>
+            {% endif %}
+
+            <span class="mx-2">Page {{ page }} sur {{ total_pages }}</span>
+
+            {% if page < total_pages %}
+                <a href="{{ url_for('index', page=page+1)}}" class="btn btn-secondary mx-2">Suivant</a>
+            {% endif %}
+        </div>
+
+        <!-- Affichage des jeux en grille de 3 -->
+        <div class="row">
+            {% for game in games %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img src="{{ url_for('serve_image', filename=game[4][7:]) }}" class="card-img-top" alt="Image du jeu">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game[1] }}</h5>
+                            <p class="card-price">{{ game[2] }} €</p>
+                            <p class="card-discount">{{ game[6] }}</p>
+                            <a href="{{ game[5]}}" class="btn btn-primary w-100">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            {% if page > 1 %}
+                <a href="{{ url_for('index', page=page-1) }}" class="btn btn-secondary mx-2">Précédent</a>
+            {% endif %}
+
+            <span class="mx-2">Page {{ page }} sur {{ total_pages }}</span>
+
+            {% if page < total_pages %}
+                <a href="{{ url_for('index', page=page+1)}}" class="btn btn-secondary mx-2">Suivant</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Fonction pour les suggestions
+            $('#search').on('input', function() {
+                var query = $(this).val();
+                if (query.length >= 2) {
+                    $.ajax({
+                        url: '/suggestions',  // Une route pour gérer les suggestions côté serveur
+                        data: { query: query },
+                        success: function(data) {
+                            $('#suggestions').empty();
+                            if (data.suggestions.length > 0) {
+                                $('#suggestions').show();
+                                data.suggestions.forEach(function(item) {
+                                    $('#suggestions').append('<a href="#" class="list-group-item list-group-item-action">' + item.title + '</a>');
+                                });
+                            } else {
+                                $('#suggestions').hide();
+                            }
+                        }
+                    });
+                } else {
+                    $('#suggestions').hide();
+                }
+            });
+
+            // Sélection d'une suggestion
+            $(document).on('click', '#suggestions a', function() {
+                var selectedTitle = $(this).text();
+                $('#search').val(selectedTitle);
+                $('#suggestions').hide();
+            });
+        });
+    </script>
+</body>
+</html>
